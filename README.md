@@ -21,8 +21,8 @@ used Ubuntu).
 
 * Set up a virtual environment (optional - recommended)
 ```sh
-$ python -m venv env
-$ source  venv/bin/activate
+$ python3 -m venv env
+$ source  env/bin/activate
 ```
 * Lint code and docstrings
 ```sh
@@ -40,3 +40,4 @@ $ pytest
 $ python3 ./meme.py
 ```
 this will return the path to a generated meme image.
+* Run server app flask run --host 0.0.0.0 --port 5000 --reload

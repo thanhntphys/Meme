@@ -39,21 +39,25 @@ def meme_form():
 @app.route("/create", methods=["POST"])
 def meme_post():
     """Create and display a user-defined meme based on form input."""
-    image_url = request.form.get("image_url")
-    body = request.form.get("body")
-    author = request.form.get("author")
+    try:
+        image_url = request.form.get("image_url")
+        body = request.form.get("body")
+        author = request.form.get("author")
 
-    response = requests.get(image_url, allow_redirects=True)
-    content_type = response.headers.get("content-type")
-    extension = mimetypes.guess_extension(content_type)
-    if not extension:
-        return render_template("error.html", message="Unsupported content type: Please use an image URL.")
+        response = requests.get(image_url, allow_redirects=True)
+        content_type = response.headers.get("content-type")
+        extension = mimetypes.guess_extension(content_type)
+        if not extension:
+            return render_template("error.html", message="Unsupported content type: Please use an image URL.")
 
-    with tempfile.NamedTemporaryFile(suffix=extension) as tmp:
-        tmp.write(response.content)
-        tmp.flush()  # Make sure all data is written
-        meme_path = meme_engine.make_meme(tmp.name, body, author)
-    return render_template("meme.html", path=Path(meme_path).relative_to(current_dir))
+        with tempfile.NamedTemporaryFile(suffix=extension) as tmp:
+            tmp.write(response.content)
+            tmp.flush()  # Make sure all data is written
+            meme_path = meme_engine.make_meme(tmp.name, body, author)
+        return render_template("meme.html", path=Path(meme_path).relative_to(current_dir))
+    except Exception as e:
+        return render_template("error.html", message=str(e))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

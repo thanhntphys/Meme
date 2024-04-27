@@ -22,7 +22,7 @@ numpy==1.26.4
 packaging==24.0
 pandas==2.2.2
 pathspec==0.12.1
-Pillow==9.5.0
+Pillow==10.3.0
 pluggy==0.13.1
 py==1.10.0
 pycodestyle==2.7.0
@@ -32,7 +32,7 @@ pyproject-toml==0.0.10
 pytest==6.2.3
 pytest-cov==2.11.1
 python-dateutil==2.9.0.post0
-python-docx==0.8.10
+python-docx==1.1.0
 pytz==2024.1
 referencing==0.34.0
 regex==2024.4.16

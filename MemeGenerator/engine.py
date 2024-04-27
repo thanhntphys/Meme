@@ -12,7 +12,7 @@ class MemeEngine:
     """Meme generator engine that creates memes by superimposing quotes onto images."""
 
     text_margin = 10  # margin to prevent text sticking too close to the borders
-    default_font = "./src/_data/fonts/FreeSans.ttf"
+    default_font = "./_data/fonts/FreeSans.ttf"
     default_font_size = 20
 
     def __init__(self, root: Path):
@@ -36,7 +36,9 @@ class MemeEngine:
         quote_str = f'"{quote.body}" - {quote.author}'
         draw = ImageDraw.Draw(img)
         font = ImageFont.truetype(font_name, font_size)
-        text_width, text_height = draw.textsize(quote_str, font=font)
+        bbox = draw.textbbox((0,0), quote_str, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
         text_x = random.randint(self.text_margin, max(self.text_margin, img.width - text_width - self.text_margin))
         text_y = random.randint(self.text_margin, max(self.text_margin, img.height - text_height - self.text_margin))
 
